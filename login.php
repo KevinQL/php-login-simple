@@ -7,17 +7,22 @@
   }
   require 'database.php';
 
+  if (isset($_POST['email'])){
+    $message = "Se produjo un error. Porfavor intente otra vez...";
+  }
+
   if (!empty($_POST['email']) && !empty($_POST['password'])) {
     $records = $conn->prepare('SELECT id, email, password FROM users WHERE email = :email');
     $records->bindParam(':email', $_POST['email']);
     $records->execute();
+    $count = $records->rowCount();
     $results = $records->fetch(PDO::FETCH_ASSOC);
 
     $message = '';
 
-    if (count($results) > 0 && password_verify($_POST['password'], $results['password'])) {
+    if ($count > 0 && password_verify($_POST['password'], $results['password'])) {
       $_SESSION['user_id'] = $results['id'];
-      header("Location: /php-login");
+      header("Location: /github-@proyects/php-login-simple");
     } else {
       $message = 'Sorry, those credentials do not match';
     }
@@ -29,6 +34,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">

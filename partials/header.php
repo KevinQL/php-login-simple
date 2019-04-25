@@ -1,3 +1,5 @@
 <header>
-  <a href="/php-login">Your App Name</a>
+  <!-- cuando colocamos el caracter "/" este nos redireccionará a la raíz de la carpeta
+       principal de nuestro servidor  -->
+  <a href="/github-@proyects/php-login-simple">PoeBook</a>
 </header>
